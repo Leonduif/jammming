@@ -20,13 +20,25 @@ class App extends React.Component {
     };
 
     this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
   }
 
   addTrack(track) {
-    playlistTracks.forEach(playlistTrack => {
+    this.state.playlistTracks.forEach(playlistTrack => {
       if (playlistTrack.id === track.id) {
         this.setState({
-          playlistTracks: playlistTracks.concat(track);
+          playlistTracks: this.state.playlistTracks.concat(track);
+        });
+        break;
+      }
+    });
+  }
+
+  removeTrack(track) {
+    this.state.playlistTracks.forEach((playlistTrack, index) => {
+      if (playlistTrack.id === track.id) {
+        this.setState({
+          playlistTracks: this.state.playlistTracks.splice(index)
         });
         break;
       }
@@ -41,7 +53,7 @@ class App extends React.Component {
               <SearchBar />
               <div className="App-playlist">
                   <SearchResults searchResults={this.state.searchResults} />
-                  <Playlist tracks={this.state.playlistTracks} />
+                  <Playlist tracks={this.state.playlistTracks} onRemove={this.props.removeTrack} />
               </div>
             </div>
           </div>

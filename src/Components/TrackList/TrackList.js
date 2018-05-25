@@ -5,7 +5,7 @@ import './TrackList.css';
 class TrackList extends React.Component {
     render() {
         const tracks = this.props.searchResults.map(track => {
-            return <Track key={track.id} track={track} onAdd={this.props.onAdd} />;
+            return <Track key={track.id} track={track} onRemove={this.props.onRemove} isRemoval={false} />;
         });
 
         return (
