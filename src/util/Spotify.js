@@ -7,9 +7,7 @@ let token;
 
 const Spotify = {
   getAccessToken() {
-    if (token) {
-      return token;
-    }
+    if (token) return token;
     const href            = window.location.href;
     const URLToken        = href.match(/access_token=([^&]*)/);
     const tokenExpiration = href.match(/expires_in=([^&]*)/);
@@ -20,13 +18,16 @@ const Spotify = {
       window.setTimeout(()=> token = '', expires * 1000);
       window.history.pushState('Access Token', null, '/');
       return token;
-    } else {
+    }
+    else {
       const accessURL = `${accessBase}?client_id=${clientID}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}`;
       window.location = accessURL;
     }
   },
+
   search(term) {
     let token = Spotify.getAccessToken();
+
     return fetch(`${searchBase}search?type=track&q=${term}`, {
       headers: {
         Authorization: `Bearer ${token}`
@@ -34,9 +35,7 @@ const Spotify = {
     }).then(response => {
       return response.json();
     }).then(jsonResponse => {
-        if(!jsonResponse.tracks){
-        return [];
-      }
+      if (!jsonResponse.tracks) return [];
       return jsonResponse.tracks.items.map( track => ({
         id: track.id,
         name : track.name,
@@ -46,14 +45,17 @@ const Spotify = {
       }))
     })
   },
+
   savePlaylist(name, trackUris) {
     if (!name || !trackUris || trackUris.length === 0) return;
+
     const searchURL = searchBase + 'me';
     const headers = {
       Authorization: `Bearer ${token}`
     };
     let userID;
     let playlistID;
+
     fetch(searchURL, {
       headers: headers
     })
