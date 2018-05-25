@@ -45,14 +45,9 @@ class App extends React.Component {
   }
 
   removeTrack(track) {
-    // this.state.playlistTracks.forEach((playlistTrack, index) => {
-    //   if (playlistTrack.id === track.id) {
-    //     this.setState({
-    //       playlistTracks: this.state.playlistTracks.splice(index)
-    //     });
-    //     break;
-    //   }
-    // });
+    this.setState({
+      playlistTracks: this.state.playlistTracks.filter(selectedTrack => selectedTrack.id !== track.id)
+    });
   }
 
   updatePlaylistName(name) {
