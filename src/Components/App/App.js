@@ -38,25 +38,23 @@ class App extends React.Component {
   }
 
   addTrack(track) {
-    this.state.playlistTracks.forEach(playlistTrack => {
-      if (playlistTrack.id === track.id) {
-        this.setState({
-          playlistTracks: this.state.playlistTracks.concat(track);
-        });
-        break;
-      }
-    });
+    if (this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)) {
+      this.setState({
+        playlistTracks: [...this.state.playlistTracks, track]
+      });
+      return;
+    }
   }
 
   removeTrack(track) {
-    this.state.playlistTracks.forEach((playlistTrack, index) => {
-      if (playlistTrack.id === track.id) {
-        this.setState({
-          playlistTracks: this.state.playlistTracks.splice(index)
-        });
-        break;
-      }
-    });
+    // this.state.playlistTracks.forEach((playlistTrack, index) => {
+    //   if (playlistTrack.id === track.id) {
+    //     this.setState({
+    //       playlistTracks: this.state.playlistTracks.splice(index)
+    //     });
+    //     break;
+    //   }
+    // });
   }
 
   updatePlaylistName(name) {
