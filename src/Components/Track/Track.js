@@ -5,8 +5,9 @@ class Track extends React.Component {
   constructor(props) {
     super(props);
 
-    this.addTrack    = this.addTrack.bind(this);
-    this.removeTrack = this.removeTrack.bind(this);
+    this.addTrack     = this.addTrack.bind(this);
+    this.removeTrack  = this.removeTrack.bind(this);
+    this.renderAction = this.renderAction.bind(this);
   }
 
   renderAction() {
@@ -35,4 +36,3 @@ class Track extends React.Component {
 }
 
 export default Track;
-

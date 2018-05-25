@@ -1,17 +1,19 @@
-const clientID    = '2c5c3e195d8a42e5a080961fbd68bb92';
+const clientID = '2c5c3e195d8a42e5a080961fbd68bb92';
 const redirectURI = 'http://localhost:3000/';
-const searchBase  = 'https://api.spotify.com/v1/';
-const accessBase  = 'https://accounts.spotify.com/authorize';
+const searchBase = 'https://api.spotify.com/v1/';
+const accessBase = 'https://accounts.spotify.com/authorize';
 
 let token;
 
 const Spotify = {
   getAccessToken() {
-    if(token) {
+    if (token) {
       return token;
     }
-    const URLToken = window.location.href.match(/access_token=([^&]*)/);
-    const tokenExpiration = window.location.href.match(/expires_in=([^&]*)/);
+    const href            = window.location.href;
+    const URLToken        = href.match(/access_token=([^&]*)/);
+    const tokenExpiration = href.match(/expires_in=([^&]*)/);
+
     if (URLToken && tokenExpiration) {
       token = URLToken[1];
       const expires = Number(tokenExpiration[1]);
